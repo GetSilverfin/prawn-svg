@@ -10,6 +10,8 @@ module Prawn::Svg::Calculators
           value.to_f * 15 # according to http://www.w3.org/TR/SVG11/coords.html
         elsif value[-1..-1] == "%"
           value.to_f * axis_length / 100.0
+        elsif match = value.match(/\dem$/)
+          value.to_f * 12
         else
           value.to_f
         end
