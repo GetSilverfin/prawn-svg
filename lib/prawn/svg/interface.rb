@@ -6,6 +6,7 @@ module Prawn
   module Svg
     class Interface
       DEFAULT_FONT_PATHS = ["/Library/Fonts", "/System/Library/Fonts", "#{ENV["HOME"]}/Library/Fonts", "/usr/share/fonts/truetype"]
+      CALLS_THAT_MUST_HAVE_A_BLOCK = ["transparent"]
 
       @font_path = []
       DEFAULT_FONT_PATHS.each {|path| @font_path << path if File.exists?(path)}
@@ -63,6 +64,9 @@ module Prawn
           elsif rewrite_call_arguments(prawn, call, arguments) == false
             issue_prawn_command(prawn, children) if children.any?
 
+          elsif children.empty? && CALLS_THAT_MUST_HAVE_A_BLOCK.include?(call)
+            # DO NOTHING, this call requires a block but doesn't have it
+            # for example an empty transparent svg tag
           elsif children.empty?
             prawn.send(call, *arguments)
 
