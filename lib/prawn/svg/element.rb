@@ -127,7 +127,7 @@ class Prawn::Svg::Element
   def parse_clip_path_attribute_and_call
     return unless clip_path = @attributes['clip-path']
 
-    if (matches = clip_path.strip.match(/\Aurl\(#(.*)\)\z/)).nil?
+    if (matches = clip_path.strip.match(/\Aurl\(.*#(.*)\)\z/)).nil?
       document.warnings << "Only clip-path attributes with the form 'url(#xxx)' are supported"
     elsif (clip_path_element = @document.elements_by_id[matches[1]]).nil?
       document.warnings << "clip-path ID '#{matches[1]}' not defined"
