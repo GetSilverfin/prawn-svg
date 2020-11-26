@@ -6,11 +6,7 @@ module Prawn
   module SVG
     class Interface
       VALID_OPTIONS = [:at, :position, :vposition, :width, :height, :cache_images, :enable_web_requests, :enable_file_requests_with_root, :fallback_font_name]
-      DEFAULT_FONT_PATHS = ["/Library/Fonts", "/System/Library/Fonts", "#{ENV["HOME"]}/Library/Fonts", "/usr/share/fonts/truetype"]
       CALLS_THAT_MUST_HAVE_A_BLOCK = ["transparent"]
-
-      @font_path = []
-      DEFAULT_FONT_PATHS.each {|path| @font_path << path if File.exists?(path)}
 
       class << self; attr_accessor :font_path; end
 
